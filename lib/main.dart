@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:english_words/english_words.dart';
 import 'package:provider/provider.dart';
+import 'home_page.dart';
 /// https://codelabs.developers.google.com/codelabs/flutter-codelab-first#2
 
 void main() {
@@ -45,43 +46,6 @@ class MyAppState extends ChangeNotifier {
       favorites.add(current);
     }
     notifyListeners();
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // context.watch<MyAppState>() 等同于 Provider.of<MyAppState>(context);
-    var appState = context.watch<MyAppState>();
-    final current = appState.current;
-    return Scaffold(
-      body: Center(
-        child: Column(
-          /// 默认是 start
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            BigCard(current: current),
-            const SizedBox(height: 10,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                ElevatedButton.icon(
-                 onPressed: appState.toggleFavorite,
-                 icon: appState.favorites.contains(current) ? const Icon(Icons.favorite) : const Icon(Icons.favorite_border) ,
-                 label: const Text('Like')),
-                 const SizedBox(width: 20,),
-                ElevatedButton(
-                  onPressed: appState.getNext,
-                  child: const Text('Next')),
-              ],
-            )
-          ]
-        ),
-      ),
-    );
   }
 }
 
