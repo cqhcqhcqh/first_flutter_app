@@ -27,6 +27,8 @@ class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final appState = context.watch<MyAppState>();
+    var theme = Theme.of(context);
+
     if (appState.favorites.isEmpty) {
     return Center(
         child: Text(
@@ -34,7 +36,42 @@ class FavoritePage extends StatelessWidget {
           style: Theme.of(context).textTheme.headlineLarge,),
       );
     }
-    
+
+    /// animation version <<<
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(30),
+          child: Text('You hav ${appState.favorites.length} favorites:'),
+        ),
+        Expanded(
+          // Make better use of wide windows with a grid.
+          child: GridView(
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 200,
+              childAspectRatio: 220 / 80
+            ),
+            children: [
+              for (var pair in appState.favorites) 
+                ListTile(
+                  leading: IconButton(
+                  icon: const Icon(Icons.delete_outline, semanticLabel: 'Delete'),
+                  color: theme.colorScheme.primary,
+                  onPressed: () {
+                    appState.removeFavorite(pair);
+                    },
+                  ),
+                  title: Text(pair.asLowerCase,
+                  semanticsLabel: pair.asPascalCase,),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
+    /// >>> animation version
+
     return ListView(
       children: 
       // <Widget>[Padding(
