@@ -3,6 +3,7 @@ import 'main.dart';
 import 'package:provider/provider.dart';
 import 'favorite_page.dart';
 import 'big_card.dart';
+import 'history_list.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -114,6 +115,11 @@ class GeneratorPage extends StatelessWidget {
           /// 默认是 start
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const Expanded(
+              flex: 3,
+              child: HistoryListView(),
+            ),
+            const SizedBox(height: 10),
             BigCard(current: current),
             const SizedBox(height: 10,),
             Row(
@@ -129,7 +135,8 @@ class GeneratorPage extends StatelessWidget {
                   onPressed: appState.getNext,
                   child: const Text('Next')),
               ],
-            )
+            ),
+            const Spacer(flex: 2),
           ]
         ),
     );

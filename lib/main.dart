@@ -33,11 +33,25 @@ class MyApp extends StatelessWidget {
 class MyAppState extends ChangeNotifier {
   var current = WordPair.random();
   var favorites = <WordPair>[];
-
+  
+  /// animation version <<<
+  var history = <WordPair>[];
+  GlobalKey? historyListKey;
   void getNext() {
+    history.insert(0, current);
+
+    var animatedList = historyListKey?.currentState as AnimatedListState?;
+    animatedList?.insertItem(0);
+    
     current = WordPair.random();
     notifyListeners();
   }
+  /// >>> animation version
+
+  // void getNext() {
+  //   current = WordPair.random();
+  //   notifyListeners();
+  // }
 
   void toggleFavorite() {
     if (favorites.contains(current)) {
@@ -47,6 +61,17 @@ class MyAppState extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  /// animation version <<<
+  void toggleFavorites(WordPair pair) {
+    if (!favorites.contains(pair)) {
+      favorites.add(pair);
+    } else {
+      favorites.remove(pair);
+    }
+    notifyListeners();
+  }
+  /// >>> animation version
   
   void removeFavorite(WordPair pair) {
     if (favorites.contains(pair)) {
