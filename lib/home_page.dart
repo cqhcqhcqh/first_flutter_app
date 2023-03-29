@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'main.dart';
 import 'package:provider/provider.dart';
+import 'favorite_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
@@ -59,7 +60,7 @@ void onNavigationailDestinationSelected(int index) {
         page = const GeneratorPage();
         break;
       case 1:
-        page = const Placeholder();
+        page = const FavoritePage();
         break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
